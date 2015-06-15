@@ -295,6 +295,7 @@ function MainLoop() {
         attemptRespawn();
         disableCooldownIfRelevant();
         updatePlayersInGame();
+        useMaxElementalDamageIfRelevant();
 
         s().m_nClicks = currentClickRate;
         g_msTickRate = 1000;
@@ -1019,6 +1020,17 @@ function useMetalDetectorIfRelevant() {
             }
         }
     }
+}
+
+function useMaxElementalDamageIfRelevant() {
+	if(hasAbility('MAX_ELEMENTAL_DAMAGE')) {
+	    if(isAbilityActive('MAX_ELEMENTAL_DAMAGE', true)) {
+	        disableAbility('MAX_ELEMENTAL_DAMAGE');
+	    } else if(!isAbilityActive('MAX_ELEMENTAL_DAMAGE')) {
+	        enableAbility('MAX_ELEMENTAL_DAMAGE');
+	        triggerAbility('MAX_ELEMENTAL_DAMAGE');
+	    }
+	}
 }
 
 function attemptRespawn() {
